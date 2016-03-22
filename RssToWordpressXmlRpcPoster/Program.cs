@@ -15,22 +15,27 @@ namespace RssToWordpressXmlRpcPoster
             try
             {
                 RssFeedToWP rssToWp = new RssFeedToWP(path);
-
+                
                 var newPosts = rssToWp.GetNonDuplicatePosts();
                 if (newPosts != null && newPosts.Count > 0)
                 {
+                     
                     Console.WriteLine("Found " + newPosts.Count + " new posts to publish. Publishing...");
                     foreach (var post in newPosts)
                     {
-                        rssToWp.wpClient.MakeNewPost(post);
-                    }
+                        rssToWp.wpClient.MakeNewPost(post);                      
+                    }                
                 }
+                Console.WriteLine("No new posts.");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong, message: " + e +" Try again...");
                 Console.ReadLine();
             }
+            Console.WriteLine("Done!");
+            Console.ReadLine();
+
         }
     }
 }

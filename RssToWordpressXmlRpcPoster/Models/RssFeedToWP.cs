@@ -63,7 +63,6 @@ namespace RssToWordpressXmlRpcPoster.Models
 
         public List<RssWithUrl> GetNonDuplicatePosts()
         {
-
             var posts = wpClient.GetPosts();
             var feeditems = rssFeed.GetRssFeed();
 

@@ -20,7 +20,6 @@ namespace RssToWordpressXmlRpcPoster.Models
         {
             config = new WordPressSiteConfig
             {
-                // http://localhost:8081/wp
                 BaseUrl = site,
                 BlogId = 1,
                 Username = username,
@@ -30,7 +29,6 @@ namespace RssToWordpressXmlRpcPoster.Models
 
         public Post[] GetPosts()
         {
-            //var id;
             Post[] posts;
             using (var client = new WordPressClient(config))
             {
@@ -43,7 +41,6 @@ namespace RssToWordpressXmlRpcPoster.Models
         }
         public void MakeNewPost(RssWithUrl postData)
         {
-            // (postData.ParsedJson.Date_published != null) ? DateTime.Parse(postData.ParsedJson.Date_published) : 
             var newPost = new Post
             {
                 Title = postData.ParsedJson.Title,
@@ -53,12 +50,10 @@ namespace RssToWordpressXmlRpcPoster.Models
                 PostType = "post",
                 Status = "publish"
             };
-            //var id;
             using (var client = new WordPressClient(config))
             {
                 client.NewPost(newPost);
             }
-            //return id;
         }
 
         // should do some refactoring...also this checks every post seperately but should only happen once per update
@@ -95,7 +90,6 @@ namespace RssToWordpressXmlRpcPoster.Models
             {
                 var terms = client.GetTerms("category", new TermFilter());
                 existingTerm = terms.FirstOrDefault(x => x.Name.Equals(keyword.Name));
-                //category = client.GetCategories().FirstOrDefault(x => x.CategoryName.Equals(keyword.Name));
             }
             return existingTerm;
         }

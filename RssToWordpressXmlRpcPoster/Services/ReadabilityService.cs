@@ -20,7 +20,6 @@ namespace RssToWordpressXmlRpcPoster.Services
             }
             
             Initialize(path);
-
         }
 
         private void Initialize(string path)
