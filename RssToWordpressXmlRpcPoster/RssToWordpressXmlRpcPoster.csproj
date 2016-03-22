@@ -65,7 +65,7 @@
     <Content Include="Keys.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Desktop\abrudtkuhl-WordPressSharp-c677ba9\src\WordPressSharp\WordPressSharp.csproj">
+    <ProjectReference Include="..\WordPressSharp\WordPressSharp.csproj">
       <Project>{7a938355-0b6b-48b7-97fb-c0c09015307b}</Project>
       <Name>WordPressSharp</Name>
     </ProjectReference>
