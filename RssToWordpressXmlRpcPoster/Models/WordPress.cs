@@ -1,6 +1,7 @@
 ﻿using System;
 using RssToWordpressXmlRpcPoster.Models.RssUptime;
 using WordPressSharp;
+using WordPressSharp.Constants;
 using WordPressSharp.Models;
 
 namespace RssToWordpressXmlRpcPoster.Models
@@ -28,8 +29,8 @@ namespace RssToWordpressXmlRpcPoster.Models
             using (var client = new WordPressClient(config))
             {
                 PostFilter filter = new PostFilter();
-                filter.PostType = "post";
-                filter.PostStatus = "publish";
+                filter.PostType = PostType.Post;
+                filter.PostStatus = PostStatus.Any;
                 posts = client.GetPosts(filter);               
             }
             return posts;
