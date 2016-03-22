@@ -23,7 +23,7 @@ namespace RssToWordpressXmlRpcPoster.Models
             }
             if (File.Exists(path))
             {
-                Initialize(path);           
+                Initialize(path);
             }
             else
             {
@@ -59,25 +59,26 @@ namespace RssToWordpressXmlRpcPoster.Models
         public List<RssWithUrl> GetNonDuplicatePosts()
         {
 
-            var posts = wpClient.GetPosts();          
-            var feeditems = PostsFromReadability(rssFeed.GetRssFeed());
+            var posts = wpClient.GetPosts();
+            var feeditems = rssFeed.GetRssFeed();
 
-            //var latestPost = feeditems.OrderByDescending(item => DateTime.Parse(item.RssModel.PubDate)).First();
-
-            //if ()
-            //{
-                
-            //}
-
-            List<RssWithUrl> postsToAdd = new List<RssWithUrl>();
-            for (int i = feeditems.Count - 1; i >= 0; i--)
+            var latestPost = posts.OrderByDescending(item => item.PublishDateTime).FirstOrDefault();
+            if (latestPost != null)
             {
-                var x = posts.FirstOrDefault(post => post.Title.Equals(feeditems.ElementAt(i).ParsedJson.Title));
-                if (x == null)
-                {
-                    postsToAdd.Add(feeditems.ElementAt(i));
-                }
+                feeditems =
+                    feeditems.Where(feeditem => DateTime.Parse(feeditem.PubDate) > latestPost.PublishDateTime)
+                        .ToList();
             }
+            var postsToAdd = PostsFromReadability(feeditems);
+            //List<RssWithUrl> postsToAdd = new List<RssWithUrl>();
+            //for (int i = feeditems.Count - 1; i >= 0; i--)
+            //{
+            //    var x = posts.FirstOrDefault(post => post.Title.Equals(feeditems.ElementAt(i).ParsedJson.Title));
+            //    if (x == null)
+            //    {
+            //        postsToAdd.Add(feeditems.ElementAt(i));
+            //    }
+            //}
             return postsToAdd;
         }
 

@@ -39,11 +39,11 @@ namespace RssToWordpressXmlRpcPoster.Models
         }
         public void MakeNewPost(RssWithUrl postData)
         {
-            // Author null?
+            // (postData.ParsedJson.Date_published != null) ? DateTime.Parse(postData.ParsedJson.Date_published) : 
             var newPost = new Post
             {
                 Title = postData.ParsedJson.Title,
-                PublishDateTime = (postData.ParsedJson.Date_published != null) ? DateTime.Parse(postData.ParsedJson.Date_published) : DateTime.Parse(postData.RssModel.PubDate),
+                PublishDateTime = DateTime.Parse(postData.RssModel.PubDate),
                 Content = postData.ParsedJson.Content + "<p>" + "<a href =\"" + postData.RssModel.Link + "\">" + "To original site.." + "</a></p>",
                 Terms = GetRssCategory(),
                 PostType = "post",
