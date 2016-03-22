@@ -9,6 +9,12 @@ namespace RssToWordpressXmlRpcPoster.Services
     {
         private string URL = "https://www.readability.com/rseero/latest/feed";
 
+        public RssFeedService(string url)
+        {
+            if (!string.IsNullOrEmpty(url))
+                URL = url;
+        }
+
         //from https://dzone.com/articles/creating-basic-rss-reader
         public List<RssModel> GetRssFeed()
         {

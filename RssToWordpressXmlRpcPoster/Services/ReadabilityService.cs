@@ -11,14 +11,26 @@ namespace RssToWordpressXmlRpcPoster.Services
     {
         private static string TOKEN_KEY;
         private static string requestUrl = "https://www.readability.com/api/content/v1/parser?token=";
-        static ReadabilityService()
+        private string path;
+
+        public ReadabilityService(string path)
         {
-            var x = new XmlDocument();
-            x.Load(Directory.GetCurrentDirectory() + "/Keys.xml");
-            TOKEN_KEY = x.SelectSingleNode("//ReaderAPI/Token").InnerText;
-            requestUrl = requestUrl + TOKEN_KEY;
+            if (string.IsNullOrEmpty(path))
+            {
+                path = Directory.GetCurrentDirectory() + "/Keys.xml";
+            }
+            Initialize(path);
 
         }
+
+        private static void Initialize(string path)
+        {
+            var x = new XmlDocument();
+            x.Load(path);
+            TOKEN_KEY = x.SelectSingleNode("//ReaderAPI/Token").InnerText;
+            requestUrl = requestUrl + TOKEN_KEY;
+        }
+
         private string MakeJsonRequest(string requestUrl)
         {
             string responseString = null;

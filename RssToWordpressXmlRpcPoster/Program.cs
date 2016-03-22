@@ -13,14 +13,23 @@ namespace RssToWordpressXmlRpcPoster
     {
         static void Main(string[] args)
         {
-            
-            var rssToWp = new RssFeedToWP();
+
+            Console.WriteLine("Please construct a Keys.xml file with specified structure " +
+                              "and type the path to that file here (leave empty if using default path):");
+            var path = Console.ReadLine();
+            Console.WriteLine("Please enter a rss feed to pull from (leave empty if default)_:");
+            var feed = Console.ReadLine();
+            Console.WriteLine("Please wait for completion...");
+            RssFeedToWP rssToWp = new RssFeedToWP(path, feed);
 
             var newPosts = rssToWp.GetNonDuplicatePosts();
-
-            foreach (var post in newPosts)
+            if (newPosts != null && newPosts.Count > 0)
             {
-                rssToWp.wpClient.MakeNewPost(post);
+                Console.WriteLine("Found " + newPosts.Count + " new posts to publish. Publishing...");
+                foreach (var post in newPosts)
+                {
+                    rssToWp.wpClient.MakeNewPost(post);
+                }
             }
         }
     }

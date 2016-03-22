@@ -11,22 +11,31 @@ namespace RssToWordpressXmlRpcPoster.Models
     public class RssFeedToWP
     {
 
-        private static ReadabilityService readerService = new ReadabilityService();
-        private static RssFeedService rssFeed = new RssFeedService();
+        private ReadabilityService readerService;
+        private RssFeedService rssFeed;
         public WordPress wpClient;
 
-        public RssFeedToWP()
+        public RssFeedToWP(string path, string feed)
         {
-            //Console.WriteLine(Directory.GetCurrentDirectory());
+            if (string.IsNullOrEmpty(path))
+            {
+                path = Directory.GetCurrentDirectory() + "/Keys.xml";
+            }
+            Initialize(path);
+            readerService = new ReadabilityService(path);
+            rssFeed = new RssFeedService(feed);
+        }
+
+        private void Initialize(string path)
+        {
             var x = new XmlDocument();
-            x.Load(Directory.GetCurrentDirectory() + "/Keys.xml");
+            x.Load(path);
             string username = x.SelectSingleNode("//WordPress/Username").InnerText;
             string password = x.SelectSingleNode("//WordPress/Password").InnerText;
             string site = x.SelectSingleNode("//WordPress/Site").InnerText;
             //string site = x.SelectSingleNode("//Feed/Url").InnerText;
             wpClient = new WordPress(username, password, site);
         }
-
 
         public List<RssWithUrl> PostsFromReadability(List<RssModel> posts)
         {
