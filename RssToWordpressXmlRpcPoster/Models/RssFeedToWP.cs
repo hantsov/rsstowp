@@ -15,15 +15,20 @@ namespace RssToWordpressXmlRpcPoster.Models
         private RssFeedService rssFeed;
         public WordPress wpClient;
 
-        public RssFeedToWP(string path, string feed)
+        public RssFeedToWP(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
                 path = Directory.GetCurrentDirectory() + "/Keys.xml";
             }
-            Initialize(path);
-            readerService = new ReadabilityService(path);
-            rssFeed = new RssFeedService(feed);
+            if (File.Exists(path))
+            {
+                Initialize(path);           
+            }
+            else
+            {
+                throw new ArgumentException("Path invalid or file not found at default location");
+            }
         }
 
         private void Initialize(string path)
@@ -33,13 +38,14 @@ namespace RssToWordpressXmlRpcPoster.Models
             string username = x.SelectSingleNode("//WordPress/Username").InnerText;
             string password = x.SelectSingleNode("//WordPress/Password").InnerText;
             string site = x.SelectSingleNode("//WordPress/Site").InnerText;
-            //string site = x.SelectSingleNode("//Feed/Url").InnerText;
+            string feedUrl = x.SelectSingleNode("//Feed/Url").InnerText;
+            readerService = new ReadabilityService(path);
+            rssFeed = new RssFeedService(feedUrl);
             wpClient = new WordPress(username, password, site);
         }
 
         public List<RssWithUrl> PostsFromReadability(List<RssModel> posts)
         {
-            //var items = feedService.GetRssFeed();
             var data = new List<RssWithUrl>();
             foreach (var item in posts)
             {
@@ -69,9 +75,7 @@ namespace RssToWordpressXmlRpcPoster.Models
                 var x = posts.FirstOrDefault(post => post.Title.Equals(feeditems.ElementAt(i).ParsedJson.Title));
                 if (x == null)
                 {
-                    //Console.WriteLine(feeditems.ElementAt(i).ParsedJson.Title + " is from reader VS " + posts.ElementAt(i));
                     postsToAdd.Add(feeditems.ElementAt(i));
-                    //feeditems.Remove(feeditems.ElementAt(i));
                 }
             }
             return postsToAdd;
