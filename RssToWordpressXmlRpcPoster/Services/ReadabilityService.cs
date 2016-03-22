@@ -11,7 +11,6 @@ namespace RssToWordpressXmlRpcPoster.Services
     {
         private static string TOKEN_KEY;
         private static string requestUrl = "https://www.readability.com/api/content/v1/parser?token=";
-        private string path;
 
         public ReadabilityService(string path)
         {
@@ -19,11 +18,12 @@ namespace RssToWordpressXmlRpcPoster.Services
             {
                 path = Directory.GetCurrentDirectory() + "/Keys.xml";
             }
+            
             Initialize(path);
 
         }
 
-        private static void Initialize(string path)
+        private void Initialize(string path)
         {
             var x = new XmlDocument();
             x.Load(path);

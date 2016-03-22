@@ -8,6 +8,11 @@ using RssToWordpressXmlRpcPoster.Services;
 
 namespace RssToWordpressXmlRpcPoster.Models
 {
+    /// <summary>
+    /// Centralizes functionality of getting data from
+    /// Readability, your RSS-feed and reading/writing to
+    /// Wordpress
+    /// </summary>
     public class RssFeedToWP
     {
 
@@ -70,15 +75,8 @@ namespace RssToWordpressXmlRpcPoster.Models
                         .ToList();
             }
             var postsToAdd = PostsFromReadability(feeditems);
-            //List<RssWithUrl> postsToAdd = new List<RssWithUrl>();
-            //for (int i = feeditems.Count - 1; i >= 0; i--)
-            //{
-            //    var x = posts.FirstOrDefault(post => post.Title.Equals(feeditems.ElementAt(i).ParsedJson.Title));
-            //    if (x == null)
-            //    {
-            //        postsToAdd.Add(feeditems.ElementAt(i));
-            //    }
-            //}
+            // if updating fails in the middle, add posts from earliest to latest
+            postsToAdd = postsToAdd.OrderBy(post => DateTime.Parse(post.RssModel.PubDate)).ToList();
             return postsToAdd;
         }
 

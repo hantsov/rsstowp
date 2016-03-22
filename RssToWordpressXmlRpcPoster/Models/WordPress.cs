@@ -8,6 +8,10 @@ using WordPressSharp.Models;
 
 namespace RssToWordpressXmlRpcPoster.Models
 {
+    /// <summary>
+    /// Uses WordPressSharp to post and read from
+    /// defined Wordpress site.
+    /// </summary>
     public class WordPress
     {
         private WordPressSiteConfig config;
