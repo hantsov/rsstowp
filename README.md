@@ -1,6 +1,6 @@
 # rsstowp
 
-Save your rss feed to a Wordpress blog.
+Save your rss feed to a Wordpress blog with Readability.
 
 Instructions:
 1. Create new blog, and use this exclusively for your feed.
