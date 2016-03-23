@@ -59,7 +59,12 @@ namespace RssToWordpressXmlRpcPoster.Services
         }
         public ReaderApiParserJson GetParsedJson(string request)
         {
-            return JsonConvert.DeserializeObject<ReaderApiParserJson>(MakeJsonRequest(request));
+            var data = MakeJsonRequest(request);
+            if (data != null)
+            {
+                return JsonConvert.DeserializeObject<ReaderApiParserJson>(data);
+            }
+            return null;
         }
 
         public string GetParsingUrl(string siteUrl)

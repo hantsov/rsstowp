@@ -20,23 +20,12 @@ namespace RssToWordpressXmlRpcPoster.Models
         private RssFeedService rssFeed;
         public WordPress wpClient;
 
-        public RssFeedToWP(string path)
+        public RssFeedToWP(string path, int blogid)
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                path = Directory.GetCurrentDirectory() + "/Keys.xml";
-            }
-            if (File.Exists(path))
-            {
-                Initialize(path);
-            }
-            else
-            {
-                throw new ArgumentException("Path invalid or file not found at default location");
-            }
+            Initialize(path, blogid);
         }
 
-        private void Initialize(string path)
+        private void Initialize(string path, int blogid)
         {
             var x = new XmlDocument();
             x.Load(path);
@@ -46,19 +35,23 @@ namespace RssToWordpressXmlRpcPoster.Models
             string feedUrl = x.SelectSingleNode("//Feed/Url").InnerText;
             readerService = new ReadabilityService(path);
             rssFeed = new RssFeedService(feedUrl);
-            wpClient = new WordPress(username, password, site);
+            wpClient = new WordPress(username, password, site, blogid);
         }
 
-        public List<RssWithUrl> PostsFromReadability(List<RssModel> posts)
+        public List<RssWithUrl> PostsFromReadability(List<RssModel> feedPosts)
         {
-            var data = new List<RssWithUrl>();
-            foreach (var item in posts)
+            var postsWithReadability = new List<RssWithUrl>();
+            foreach (var item in feedPosts)
             {
                 var rssWithUrl = new RssWithUrl(item, readerService.GetParsingUrl(item.Link));
                 rssWithUrl.ParsedJson = readerService.GetParsedJson(rssWithUrl.RequestUrl);
-                data.Add(rssWithUrl);
+                if (rssWithUrl.ParsedJson == null)
+                {
+                    return null;
+                }
+                postsWithReadability.Add(rssWithUrl);
             }
-            return data;
+            return postsWithReadability;
         }
 
         public List<RssWithUrl> GetNonDuplicatePosts()
@@ -74,8 +67,8 @@ namespace RssToWordpressXmlRpcPoster.Models
                         .ToList();
             }
             var postsToAdd = PostsFromReadability(feeditems);
-            // if updating fails in the middle, add posts from earliest to latest
-            postsToAdd = postsToAdd.OrderBy(post => DateTime.Parse(post.RssModel.PubDate)).ToList();
+            // if not null, order from earliest to latest in case updating fails in the middle
+            postsToAdd = postsToAdd?.OrderBy(post => DateTime.Parse(post.RssModel.PubDate)).ToList();
             return postsToAdd;
         }
 

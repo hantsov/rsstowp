@@ -16,12 +16,13 @@ namespace RssToWordpressXmlRpcPoster.Models
     {
         private WordPressSiteConfig config;
 
-        public WordPress(string username, string password, string site)
+        public WordPress(string username, string password, string site, int blogid)
         {
+            
             config = new WordPressSiteConfig
             {
                 BaseUrl = site,
-                BlogId = 1,
+                BlogId = blogid,
                 Username = username,
                 Password = password
             };
