@@ -15,15 +15,15 @@ As it stands atm put Keys.xml in your app launch directory.
 ```xml
 <UserData>
   <ReaderAPI>
-    <Token></Token>
+    <Token>123456...</Token>
   </ReaderAPI>
 	<Feed>
-		<Url></Url>
+		<Url>http://feeds.example.com/examples</Url>
 	</Feed>
 	<WordPress>
-		<Site></Site>
-		<Username></Username>
-		<Password></Password>
+		<Site>http://www.example.com/wp</Site>
+		<Username>user</Username>
+		<Password>12345</Password>
 	</WordPress>
 </UserData>
 ```
