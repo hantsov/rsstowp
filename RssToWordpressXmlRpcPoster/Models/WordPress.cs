@@ -39,12 +39,12 @@ namespace RssToWordpressXmlRpcPoster.Models
                 //filter.PostStatus = PostStatus.Any;
                 //var post = client.GetPost(103);
                 //Console.ReadLine();
-                var y = client.GetPost(996);
-                using (var client2 = new WordPressXmlRpcClient(config.BaseUrl, config.Username, config.Password))
-                {
-                    var x = client2.GetPost(996);
-                    Console.ReadLine();
-                }
+                //var y = client.GetPost(1);
+                //using (var client2 = new WordPressXmlRpcClient(config.BaseUrl, config.Username, config.Password))
+                //{
+                //    var x = client2.GetPost(103);
+                //    Console.ReadLine();
+                //}
                 posts = client.GetPosts(null);
             }
             return posts;
