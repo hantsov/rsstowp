@@ -33,8 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="POSSIBLE.WordPress.XmlRpcClient, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\POSSIBLE.WordPress.XmlRpcClient.1.1\lib\net40\POSSIBLE.WordPress.XmlRpcClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,7 +73,7 @@
     <Content Include="Keys.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WordPressSharp\WordPressSharp.csproj">
+    <ProjectReference Include="..\..\..\..\..\Desktop\WordPressSharp-master\WordPressSharp-master\src\WordPressSharp\WordPressSharp.csproj">
       <Project>{7a938355-0b6b-48b7-97fb-c0c09015307b}</Project>
       <Name>WordPressSharp</Name>
     </ProjectReference>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using POSSIBLE.WordPress.XmlRpcClient;
 using RssToWordpressXmlRpcPoster.Models.RssUptime;
 using WordPressSharp;
 using WordPressSharp.Constants;
@@ -33,10 +34,18 @@ namespace RssToWordpressXmlRpcPoster.Models
             Post[] posts;
             using (var client = new WordPressClient(config))
             {
-                PostFilter filter = new PostFilter();
-                filter.PostType = PostType.Post;
-                filter.PostStatus = PostStatus.Any;
-                posts = client.GetPosts(filter);
+                //PostFilter filter = new PostFilter();
+                //filter.PostType = PostType.Post;
+                //filter.PostStatus = PostStatus.Any;
+                //var post = client.GetPost(103);
+                //Console.ReadLine();
+                var y = client.GetPost(996);
+                using (var client2 = new WordPressXmlRpcClient(config.BaseUrl, config.Username, config.Password))
+                {
+                    var x = client2.GetPost(996);
+                    Console.ReadLine();
+                }
+                posts = client.GetPosts(null);
             }
             return posts;
         }

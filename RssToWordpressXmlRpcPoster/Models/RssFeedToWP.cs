@@ -72,6 +72,5 @@ namespace RssToWordpressXmlRpcPoster.Models
             return postsToAdd;
         }
 
-
     }
 }

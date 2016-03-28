@@ -19,6 +19,19 @@ namespace RssToWordpressXmlRpcPoster
             else
                 DisplayErrors(errors);
 
+            //List<string> errors = new List<string>();
+            ////string path = CheckFilePath(errors);
+            ////int id = CheckBlogId(errors);
+            //string path = Directory.GetCurrentDirectory() + "/Keys.xml";
+            //Console.WriteLine(path);
+            //int id = 1;
+            //if (errors.Count == 0)
+            //{
+            //    Publish(path, id);
+            //}
+            //else
+            //    DisplayErrors(errors);
+
         }
 
         private static int CheckBlogId(List<string> errors)

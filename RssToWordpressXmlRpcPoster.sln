@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RssToWordpressXmlRpcPoster", "RssToWordpressXmlRpcPoster\RssToWordpressXmlRpcPoster.csproj", "{7457EBE0-5D07-468B-BA1A-F5F8E08FCCB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPressSharp", "WordPressSharp\WordPressSharp.csproj", "{7A938355-0B6B-48B7-97FB-C0C09015307B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPressSharp", "..\..\..\..\Desktop\WordPressSharp-master\WordPressSharp-master\src\WordPressSharp\WordPressSharp.csproj", "{7A938355-0B6B-48B7-97FB-C0C09015307B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
